@@ -1,13 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
-using UnityEngine.SceneManagement;
 
-
-public class GameManager : MonoBehaviour
+public class LockPick : MonoBehaviour
 {
-    public GameObject lockPick;
     public Transform innerLock;
     public Transform pickTransform;
     public Camera camera;
@@ -30,15 +26,15 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        lockPick.transform.localPosition = pickTransform.position;
-        if (canMovePick)
+        transform.localPosition = pickTransform.position;
+        if(canMovePick)
         {
-            Vector3 dir = Input.mousePosition - camera.WorldToScreenPoint(lockPick.transform.position);
+            Vector3 dir = Input.mousePosition - camera.WorldToScreenPoint(transform.position);
 
             pickAngle = Vector3.Angle(dir, Vector3.up);
 
             Vector3 cross = Vector3.Cross(Vector3.up, dir);
-            if (cross.z < 0)
+            if(cross.z < 0)
             {
                 pickAngle = -pickAngle;
             }
@@ -46,7 +42,7 @@ public class GameManager : MonoBehaviour
             pickAngle = Mathf.Clamp(pickAngle, -maxAngle, maxAngle);
 
             Quaternion pinRotation = Quaternion.AngleAxis(pickAngle, Vector3.forward);
-            lockPick.transform.rotation = pinRotation;
+            transform.rotation = pinRotation;
         }
 
         if (Input.GetKeyDown(KeyCode.D))
@@ -81,7 +77,7 @@ public class GameManager : MonoBehaviour
             else
             {
                 float randomRotation = Random.insideUnitCircle.x;
-                lockPick.transform.eulerAngles += new Vector3(0, 0, Random.Range(-randomRotation, randomRotation));
+                transform.eulerAngles += new Vector3(0, 0, Random.Range(-randomRotation, randomRotation));
             }
         }
     }
@@ -90,11 +86,5 @@ public class GameManager : MonoBehaviour
     {
         openAngle = Random.Range(-maxAngle + lockRange, maxAngle - lockRange);
         unlockRange = new Vector2(openAngle - lockRange, openAngle + lockRange);
-    }
-
-    public void SetLockRange(int range)
-    {
-        lockRange = range;
-        ResetLock();
     }
 }
