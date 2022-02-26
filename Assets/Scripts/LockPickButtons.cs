@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LockPickButtons : MonoBehaviour
 {
@@ -24,5 +25,10 @@ public class LockPickButtons : MonoBehaviour
     public void MediumButtonPressed()
     {
         gameManager.SetLockRange(10);
+    }
+
+    public void RestartButtonPressed()
+    {
+        SceneManager.LoadScene("LockPickGame");
     }
 }

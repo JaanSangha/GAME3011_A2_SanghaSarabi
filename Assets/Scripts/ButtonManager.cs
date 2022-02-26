@@ -7,6 +7,6 @@ public class ButtonManager : MonoBehaviour
 {
     public void OnMiniGameClick()
     {
-        SceneManager.LoadScene("Minigame");
+        SceneManager.LoadScene("LockPickGame");
     }
 }
